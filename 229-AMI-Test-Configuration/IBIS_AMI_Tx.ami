@@ -1,0 +1,33 @@
+(IBIS_AMI_Tx
+   (Description "Generic transmitter model published by SiSoft")
+
+   (Reserved_Parameters
+      (Ignore_Bits (Usage Info) (Type Integer) (Default 4)
+         (Description "Ignore four bits to fill up tapped delay line."))
+      (Max_Init_Aggressors (Usage Info) (Type Integer) (Default 25)
+         (Description "Number of aggressors is actually unlimited."))
+      (Init_Returns_Impulse (Usage Info) (Type Boolean) (Default True)
+         (Description "Both impulse and parameters_out returned."))
+      (GetWave_Exists (Usage Info) (Type Boolean) (Default True)
+         (Description "GetWave is well and truly provided in the module."))
+      (Use_Init_Output (Usage Info) (Type Boolean) (Default False)
+         (Description "GetWave and Init function independent of each other."))
+   ) | End Reserved_Parameters
+
+   (Model_Specific
+      (tap_filter (Description "Array of transmit de-emphasis tap weights")
+         (-1 (Usage InOut)(Format Range 0.0 -1.0 1.0)(Type Tap)(Default 0)
+             (Description "Pre-cursor tap weight"))
+         (0  (Usage InOut)(Format Range 1.0 -1.0 1.0)(Type Tap)(Default 1)
+             (Description "Main tap weight"))
+         (1  (Usage InOut)(Format Range 0.0 -1.0 1.0)(Type Tap)(Default 0)
+             (Description "First post-cursor tap weight"))
+         (2  (Usage InOut)(Format Range 0.0 -1.0 1.0)(Type Tap)(Default 0)
+             (Description "Second post-cursor tap weight"))
+      ) | End tap_filter
+      (tx_swing (Usage In)(Format Range 0.8 0.3 1.0)(Type Float)(Default 0.8)
+                (Description "Peak differential output voltage")
+      ) | End tx_swing
+   ) | End Model_Specific
+
+) | End IBIS_AMI_Tx

@@ -1,0 +1,153 @@
+|Copyright 2009 Signal Integrity Software, Inc.
+|
+|###############################################################
+|  Signal Integrity Software, Inc. (SiSoft)
+|###############################################################
+
+[IBIS Ver] 7.2
+|[IBIS Ver] 8.0
+
+[Disclaimer] 
+
+Permission to use, copy, modify, and distribute this software and 
+associated documentation for educational, research and commercial 
+purposes, without fee and without a signed licensing agreement, is hereby
+granted, provided that the above copyright notice, this paragraph and
+the following three paragraphs appear in all copies, modifications, and
+distributions. 
+
+This is part of a sample IBIS Algorithmic Modeling Interface (AMI) model. 
+This code has been provided by SiSoft to help demonstrate and drive 
+adoption of the IBIS AMI modeling standard.  For more information
+on this and other IBIS AMI models, contact Signal Integrity Software, 
+6 Clock Tower Place, Maynard, MA 01754, (978) 461-0449 or email
+ibis-ami@sisoft.com.
+ 
+THIS MATERIAL IS PROVIDED FOR THE RECIPIENT'S USE AT THE RECIPIENT's OWN RISK.
+IN NO EVENT SHALL SISOFT BE LIABLE TO ANY PARTY FOR FOR ANY DIRECT,
+INDIRECT, INCIDENTAL,SPECIAL OR CONSEQUENTIAL DAMAGES, OR ANY OTHER DAMAGES 
+WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, 
+BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS) 
+ARISING OUT OF THE USE OR INABILITY TO USE THIS LICENSED MATERIAL, WHETHER 
+OR NOT THE POSSIBILITY OR CAUSE OF SUCH DAMAGES WAS KNOWN TO SISOFT.
+ 
+SISOFT SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE. THIS SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF
+ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". SISOFT HAS NO OBLIGATION
+TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
+MODIFICATIONS.
+
+[File Name]  sisoft_tx.ibs
+ 
+[File Rev]   1.0
+ 
+[Date]       8/25/2009
+ 
+[Source]     Developed by: Signal Integrity Software, Inc.
+6 Clock Tower Place, Suite 250 Maynard, MA 01754
+ 
+[Notes]
+
+Rev 1.0
+- 8/25/2009 Inital Release
+
+Rev 1.1
+- Dec. 12, 2023 - modified by Michael Mirmak, Intel Corp.
+  to illustrate deployment of [AMI Test Configuration]
+  under IBIS 8.0
+
+[Copyright]     Copyright 2009, Signal Integrity Software, Inc.
+
+[Component] SiSoft_Tx
+[Manufacturer] SiSoft
+
+[Package]
+
+R_pkg 0.001m   NA      NA
+L_pkg 0.001nH  NA      NA
+C_pkg 0.001pF  NA      NA
+
+[Pin]    signal_name              model_name        R_pin L_pin  C_pin
+1p       SiSoft_AMI_Tx            IBIS_AMI_Tx
+1n       SiSoft_AMI_Tx_L          IBIS_AMI_Tx
+
+[Diff_Pin] inv_pin vdiff tdelay_typ tdelay_min tdelay_max
+1p       1n           0.1V  NA    NA    NA
+
+[Model] IBIS_AMI_Tx
+Model_type Output
+
+C_comp 0.5p 0.45p 0.55p
+Cref = 0
+Vref = 0.5
+Rref = 50
+Vmeas = 0.5
+
+[Temperature_Range] 25 100 0
+[Voltage Range] 1.0 0.9 1.1
+
+[Pulldown]
+-3.00               -0.060              -0.060              -0.060
+ 0.00                0.000               0.000               0.000
+ 3.00                0.060               0.060               0.060
+
+[Pullup]
+-3.00                0.060               0.060               0.060
+ 0.00                0.000               0.000               0.000
+ 3.00               -0.060              -0.060              -0.060
+
+[GND Clamp]
+-3.00                0.000               0.000               0.000
+ 0.00                0.000               0.000               0.000
+ 3.00                0.000               0.000               0.000
+
+[Power Clamp]
+-3.00                0.000               0.000               0.000
+ 0.00                0.000               0.000               0.000
+ 3.00                0.000               0.000               0.000
+
+[Ramp]
+|dV/dt_r .45/50p .42/55p .48/45p
+|dV/dt_f .45/50p .42/55p .48/45p
+
+| Original edited to match I-V data per ibischk7_64 -caution output
+dV/dt_r .3/33.33p .27/35.357p .33/30.9375p
+dV/dt_f .3/33.33p .27/35.357p .33/30.9375p
+
+[Algorithmic Model]
+Executable Windows_VisualStudio_64 IBIS_AMI_Tx_64.dll IBIS_AMI_Tx.ami
+Executable Windows_VisualStudio_32 IBIS_AMI_Tx.dll IBIS_AMI_Tx.ami
+Executable linux_gcc3.2.3_32 libIBIS_AMI_Tx.so IBIS_AMI_Tx.ami
+
+| The Executable_index value below identifies the data for AMI Test 
+| Configuration as having been collected using the libtx_getwave.so 
+| executable.
+|
+|[AMI Test Configuration]  Typ_corner_statistical
+|Type Statistical
+|Direction Tx
+|Input_IR_file  four_tap_input_IR.txt
+|AMI_input_parameters_file  four_tap_tx_params_typ_stat.txt
+|Golden_IR_file  four_tap_output_IR_typ_stat.txt
+|AMI_output_parameters_file  four_tap_output_params_typ_stat.txt
+|Executable_index 2
+|
+| The Executable_index value below identifies the data for AMI Test 
+| Configuration as having been collected using the tx_getwave.dll 
+| executable.
+|
+|[AMI Test Configuration]  Typ_corner_time_domain
+|Type Time_domain
+|Direction Tx
+|Input_IR_file  four_tap_input_IR.txt 
+|Input_waveform_file  four_tap_input_bits.txt 
+|AMI_input_parameters_file  four_tap_tx_params_typ_TD.txt
+|Golden_IR_file  four_tap_output_IR_typ.txt
+|Golden_waveform_file  four_tap_output_wave_typ_TD.txt
+|AMI_output_parameters_file  four_tap_output_params_typ_TD.txt
+|Executable_index 2
+[End Algorithmic Model]
+|
+
+[END]

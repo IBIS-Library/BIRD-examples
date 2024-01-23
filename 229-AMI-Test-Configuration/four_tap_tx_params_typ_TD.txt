@@ -1,0 +1,17 @@
+(Simulator_parameters
+	(Sample_interval 2.50E-11)
+	(Symbol_time 2.00E-10)
+	(Wave_size 1024)
+)
+(Model_parameters
+	(IBIS_AMI_Tx
+     		(tap_filter 
+			(-1 -0.15)
+		 	(0 0.7)
+                	(1 -0.125)
+                 	(2 -0.025)
+     		)
+	   	(tx_swing 0.8
+     		)
+	)
+)
